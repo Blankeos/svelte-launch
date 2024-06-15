@@ -2,8 +2,6 @@
 
 > An sophisticated boiler-plate built for **simplicity**.
 
-![Image](https://assets.solidjs.com/banner?type=Starter%20Kit&background=tiles&project=Solid%20Launch)
-
 [Carlo](https://carlo.vercel.app/)'s starter for making a SvelteKit app with batteries included on stuff I like after experimenting for years.
 
 This is handcrafted from my own research. This might not work for you, but it works for me. 🤓
