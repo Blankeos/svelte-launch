@@ -6,8 +6,8 @@ export const createContext = async (event: RequestEvent) => {
     /** API Event from SolidStart */
     event: event,
 
-    // The following will be set by the middlewares. 
+    // The following will be set by the middlewares.
     user: null as User | null,
-    session: null as Session | null
+    session: null as Session | null,
   };
 };

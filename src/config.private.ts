@@ -1,4 +1,4 @@
-import { env as privateEnv } from "$env/dynamic/private";
+import { env as privateEnv } from '$env/dynamic/private';
 
 /** Only place private configurations here. */
 export const privateConfig = {
@@ -11,7 +11,7 @@ export const privateConfig = {
     /** The url of the database. */
     URL: privateEnv.DATABASE_URL! as string,
     /** Not needed in development. https://docs.turso.tech/local-development#sqlite */
-    AUTH_TOKEN: privateEnv.DATABASE_AUTH_TOKEN! as string
+    AUTH_TOKEN: privateEnv.DATABASE_AUTH_TOKEN! as string,
   },
   /** S3Bucket-specific settings. */
   s3: {
@@ -24,6 +24,6 @@ export const privateConfig = {
     /** Region of the bucket. */
     REGION: privateEnv.S3_REGION! ?? ('us-east-1' as string),
     /** URL of the bucket. Important that this starts with http:// or https:// */
-    ENDPOINT: (privateEnv.S3_ENDPOINT! ?? 'http://127.0.0.1:9000') as string
-  }
-}; 
+    ENDPOINT: (privateEnv.S3_ENDPOINT! ?? 'http://127.0.0.1:9000') as string,
+  },
+};

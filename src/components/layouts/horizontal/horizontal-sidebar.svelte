@@ -7,7 +7,7 @@
   import { authStore } from '@/stores/auth.store';
 </script>
 
-<div class="flex h-full w-56 flex-col border-r px-8">
+<div class="flex h-full w-56 flex-shrink-0 flex-col border-r px-8 py-8">
   <div class="flex items-center gap-x-3">
     <a href={PageRoutes.Home} class="text-4xl text-gray-500">
       {'<'}
@@ -25,7 +25,7 @@
 
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuItem href={PageRoutes.Dashboard}>Settings</DropdownMenuItem>
+          <DropdownMenuItem href={PageRoutes.Settings}>Settings</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     {/if}

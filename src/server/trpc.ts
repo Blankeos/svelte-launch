@@ -36,13 +36,16 @@ export const publicProcedure = t.procedure;
 export const authedProcedure = t.procedure.use(async function isAuthed(opts) {
   // 1. Check cookie.session.
   const sessionId = opts.ctx.event.cookies.get(lucia.sessionCookieName) ?? null;
-  
+
   // 2. Validate session. (This is what I personally think Lucia's validateSession should be doing).
   const { user, session, sessionCookie } = await validateSession(sessionId);
 
   // use `header()` instead of setCookie to avoid TS errors
   if (sessionCookie) {
-    opts.ctx.event.cookies.set(sessionCookie.name, sessionCookie.value, { path: ".", ...sessionCookie.attributes });
+    opts.ctx.event.cookies.set(sessionCookie.name, sessionCookie.value, {
+      path: '.',
+      ...sessionCookie.attributes,
+    });
   }
 
   opts.ctx.user = user;
@@ -57,7 +60,7 @@ export const authedProcedure = t.procedure.use(async function isAuthed(opts) {
 export const protectedProcedure = authedProcedure.use(async function isRequired(opts) {
   if (!opts.ctx.user?.id) {
     throw new TRPCError({
-      code: 'UNAUTHORIZED'
+      code: 'UNAUTHORIZED',
     });
   }
 

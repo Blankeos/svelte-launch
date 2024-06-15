@@ -46,7 +46,7 @@ export async function validateSession(
     return {
       user: null,
       session: null,
-      sessionCookie: null
+      sessionCookie: null,
     };
   }
 
@@ -60,7 +60,7 @@ export async function validateSession(
     return {
       session: session,
       user: user,
-      sessionCookie: lucia.createSessionCookie(session.id)
+      sessionCookie: lucia.createSessionCookie(session.id),
     };
   }
 
@@ -69,7 +69,7 @@ export async function validateSession(
     return {
       session: session,
       user: user,
-      sessionCookie: lucia.createBlankSessionCookie()
+      sessionCookie: lucia.createBlankSessionCookie(),
     };
   }
 
@@ -77,6 +77,6 @@ export async function validateSession(
   return {
     session: session,
     user: user,
-    sessionCookie: null
+    sessionCookie: null,
   };
 }

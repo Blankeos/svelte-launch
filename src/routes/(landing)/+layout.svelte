@@ -1,10 +1,9 @@
-
 <script lang="ts">
-  import VerticalLayout from "@/components/layouts/vertical/vertical-layout.svelte";
+  import VerticalLayout from '@/components/layouts/vertical/vertical-layout.svelte';
 
-const { children} = $props();
+  const { children } = $props();
 </script>
 
 <VerticalLayout>
-    {@render children()}
+  {@render children()}
 </VerticalLayout>

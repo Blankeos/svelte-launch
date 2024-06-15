@@ -31,7 +31,7 @@
     };
   });
 
-  const { children } = $props<{ children: Snippet}>();
+  const { children } = $props<{ children: Snippet }>();
 </script>
 
 {@render children()}

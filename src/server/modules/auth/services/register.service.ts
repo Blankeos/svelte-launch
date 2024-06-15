@@ -24,7 +24,7 @@ export async function register(params: RegisterParams) {
   if (existingUsername) {
     throw new TRPCError({
       code: 'BAD_REQUEST',
-      message: `Username ${username} already exists.`
+      message: `Username ${username} already exists.`,
     });
   }
 
@@ -33,7 +33,7 @@ export async function register(params: RegisterParams) {
     memoryCost: 19456,
     timeCost: 2,
     outputLen: 32,
-    parallelism: 1
+    parallelism: 1,
   });
 
   const { userId } = await authDAO.user.createFromUsernameAndPassword(username, passwordHash);
@@ -45,6 +45,6 @@ export async function register(params: RegisterParams) {
   return {
     userId,
     sessionId: session.id,
-    sessionCookie: sessionCookie
+    sessionCookie: sessionCookie,
   };
 }

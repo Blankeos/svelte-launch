@@ -16,7 +16,7 @@ export const lucia = new Lucia(adapter, {
   sessionCookie: {
     attributes: {
       // set to `true` when using HTTPS
-      secure: privateConfig.NODE_ENV === 'production'
+      secure: privateConfig.NODE_ENV === 'production',
     },
 
     /**
@@ -33,15 +33,15 @@ export const lucia = new Lucia(adapter, {
      * Alternatively: You should make sure to send the Request and Respose back
      * between the browser -> ssr -> api -> ssr -> browser.
      */
-    expires: true // Default: true,
+    expires: true, // Default: true,
   },
   getUserAttributes: (attributes) => {
     return {
       username: attributes.username,
       createdTimestamp: attributes.createdTimestamp,
-      updatedTimestamp: attributes.updatedTimestamp
+      updatedTimestamp: attributes.updatedTimestamp,
     };
-  }
+  },
 });
 
 declare module 'lucia' {

@@ -1,4 +1,4 @@
-import { dehydrate, QueryClient } from "@tanstack/svelte-query";
+import { dehydrate, QueryClient } from '@tanstack/svelte-query';
 
 /**
  * A function you can use on the server and pass the queries to be prefetched.

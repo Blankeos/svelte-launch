@@ -1,22 +1,20 @@
 <script lang="ts">
-    import "@/styles/app.css";
-    import "@/styles/nprogress.css";
-    
-    import { QueryClient, QueryClientProvider } from "@tanstack/svelte-query";
-    import { Toaster } from "svelte-sonner";
+  import '@/styles/app.css';
+  import '@/styles/nprogress.css';
 
-    import { AuthStoreProvider } from "@/stores/auth.store";
+  import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
+  import { Toaster } from 'svelte-sonner';
 
-    const { children } = $props();
+  import { AuthStoreProvider } from '@/stores/auth.store';
 
-    const queryClient = new QueryClient();
+  const { children } = $props();
 
-
+  const queryClient = new QueryClient();
 </script>
 
 <AuthStoreProvider>
-    <QueryClientProvider client={queryClient}>
-        {@render children()}
-        <Toaster />
-    </QueryClientProvider>
+  <QueryClientProvider client={queryClient}>
+    {@render children()}
+    <Toaster />
+  </QueryClientProvider>
 </AuthStoreProvider>
