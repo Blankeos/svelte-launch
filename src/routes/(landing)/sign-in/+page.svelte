@@ -58,8 +58,7 @@
       </button>
     </form>
 
-    <pre class="rounded-md border border-gray-500 bg-gray-900 p-3 text-white">
-        {JSON.stringify($formData, null, 2)}
-      </pre>
+    <pre
+      class="rounded-md border border-gray-500 bg-gray-900 p-3 text-white">{`${JSON.stringify($formData, null, 2)}`}</pre>
   </div>
 </div>
