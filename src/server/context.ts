@@ -3,7 +3,7 @@ import type { Session, User } from 'lucia';
 
 export const createContext = async (event: RequestEvent) => {
   return {
-    /** API Event from SolidStart */
+    /** Request Event from SvelteKit */
     event: event,
 
     // The following will be set by the middlewares.

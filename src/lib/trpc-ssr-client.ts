@@ -30,8 +30,12 @@ import { createTRPCClient, httpBatchLink } from '@trpc/client';
 export const initTRPCSSRClient = (
   /** Pass the request headers sent by the browser here. */
   requestHeaders: Headers,
-  /** Pass the response headers to be sent back to the browser here. */
-  responseHeaders: Headers
+  /**
+   * Pass the response headers to be sent back to the browser here.
+   * NOTE: In SvelteKit, we can't pass response.headers directly.
+   * But there is an event.setHeaders` method that we can use for this case.
+   */
+  responseSetHeaders: (headers: Record<string, string>) => void
 ) => {
   return createTRPCClient<AppRouter>({
     links: [
@@ -46,9 +50,16 @@ export const initTRPCSSRClient = (
           const response = await fetch(url, options);
 
           // This is where we proxy it back.
+          const responseHeaders: Record<string, string> = {};
+
           for (const [key, value] of response.headers) {
-            responseHeaders.set(key, value);
+            // Don't set back the Content-Type header (Otherwise, content-type HTML would become a json).
+            if (key.toLowerCase() === 'content-type') continue;
+
+            responseHeaders[key] = value;
           }
+
+          responseSetHeaders(responseHeaders);
 
           return response;
         },

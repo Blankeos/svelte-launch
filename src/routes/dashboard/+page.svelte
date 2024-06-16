@@ -1,6 +1,9 @@
 <script>
   import ProtectedRoute from '@/components/common/protected-route.svelte';
-  import { authStore } from '@/stores/auth.store';
+  import { authStore, hydrateAuthStore } from '@/stores/auth.store';
+
+  let { data } = $props();
+  hydrateAuthStore(data.user);
 
   let innerHeight = $state(0);
   let innerWidth = $state(0);

@@ -74,11 +74,82 @@ I took care of the painstaking parts to help you develop easily on a SPA + SSR +
 1. Make use of the `code-snippets` I added. It'll help!
 2. Check all typescript errors (`Cmd` + `Shift` + `B` > `tsc:watch tsconfig.json`).
 3. Authentication Practices - I have these out-of-the-box for you so you won't have to build it.
-   - Getting Current User `const { user } = useAuthContext()`
-   - Login, Logout, Register `const { register, login, logout } = useAuthContext()`
-   - Hydrating Current User `+data` + `initTRPCSSRClient`.
-   - Protecting Routes (Client-Side) `<ProtectedRoute />`
-   - Protecting Routes (SSR) `+guard`
+
+   - Getting Current User.
+
+     ```ts
+     import { authStore } from '@/stores/auth.store';
+     ```
+
+   - Login, Logout, Register
+
+     ```ts
+     import { login, logout, register } from '@/stores/auth.store';
+     ```
+
+   - Hydrating Current User
+
+     This will also automatically hydrate in your layouts. Anywhere you use `$authStore` it's magic.
+
+     ```ts
+     // page.server.ts
+     export async function load(event: PageServerLoadEvent) {
+        const trpcClient = initTRPCSSRClient(event.request.headers, event.setHeaders);
+
+        const result = await trpcClient.currentUser.query();
+
+        if (!result.user) {
+           throw redirect(302, '/dashboard'); // Must be a public route here.
+        }
+
+        return {
+           user: result.user ?? null,
+        };
+     }
+
+     // page.svelte
+     import { authStore, hydrateAuthStore } from '@/stores/auth.store';
+
+     let { data } = $props();
+     hydrateAuthStore(data.user);
+     ```
+
+   - Protecting Routes (Client-Side) - Just block the content.
+
+     ```tsx
+     <script>
+     import ProtectedRoute from '@/components/common/protected-route.svelte';
+     </script>
+
+     <ProtectedRoute>
+       On the server (hydration), this part will not be rendered if unauthenticated.
+
+       On the client, you will be redirected to a public route if unauthenticated.
+     </ProtectedRoute>
+     ```
+
+   - Protecting Routes (SSR) - Automatically redirect.
+
+     ```ts
+     import { initTRPCSSRClient } from '@/lib/trpc-ssr-client.js';
+     import { redirect } from '@sveltejs/kit';
+     import type { PageServerLoadEvent } from './$types';
+
+     export async function load(event: PageServerLoadEvent) {
+        const trpcClient = initTRPCSSRClient(event.request.headers, event.setHeaders);
+
+        const result = await trpcClient.currentUser.query();
+
+        if (!result.user) {
+           throw redirect(302, '/dashboard'); // Must be a public route here.
+        }
+
+        return {
+           user: result.user ?? null,
+        };
+     }
+     ```
+
 4. Dataloading Practices - Also have these out-of-the-box for most usecases since they're tricky to do if you're clueless:
    - Tanstack Query (Client-only) - Use `trpc-client.ts`
    - Hydrated Tanstack Query (SSR) - Use `create-dehydrated-state.ts` + `trpc-ssr-client.ts`

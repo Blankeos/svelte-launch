@@ -11,6 +11,15 @@ export const authStore = writable<AuthStoreValue>({
   loading: true,
 });
 
+export function hydrateAuthStore(user: { id: string; username: string } | null) {
+  authStore.update((value) => {
+    value.loading = !!user ?? false;
+    value.user = user ?? null;
+
+    return value;
+  });
+}
+
 export async function login(username: string, password: string) {
   const result = await trpcClient.login.mutate({
     username: username,
