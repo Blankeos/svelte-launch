@@ -2,5 +2,10 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": "always"
+  },
+
+  // Disable SvelteKit accessibility warnings: https://svelte.dev/docs/accessibility-warnings
+  "svelte.plugin.svelte.compilerWarnings": {
+    "element_invalid_self_closing_tag": "ignore" // I just hate this: https://github.com/sveltejs/svelte/issues/11052
   }
 }

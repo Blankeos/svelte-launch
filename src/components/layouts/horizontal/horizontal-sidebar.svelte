@@ -16,7 +16,6 @@
     {#if $authStore.user}
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <!-- svelte-ignore element_invalid_self_closing_tag -->
           <div
             class="h-12 w-12 flex-shrink-0 rounded-full"
             style={`background-position: center; background-size: cover; background-image: url(https://thicc-uwu.mywaifulist.moe/waifus/satoru-gojo-sorcery-fight/bOnNB0cwHheCCRGzjHLSolqabo41HxX9Wv33kfW7.jpg?class=thumbnail);`}
@@ -28,6 +27,8 @@
           <DropdownMenuItem href={PageRoutes.Settings}>Settings</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+    {:else}
+      <div class="h-12 w-12 flex-shrink-0 rounded-full bg-gray-100" />
     {/if}
   </div>
 </div>
