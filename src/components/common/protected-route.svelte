@@ -41,7 +41,7 @@
     }
 
     if (!$authStore.user && !$authStore.loading) {
-      // goto(fallback);
+      goto(fallback);
 
       // Remove the protector.
       showProtector = false;

@@ -2,5 +2,3 @@
 export const publicConfig = {
   BASE_ORIGIN: import.meta.env.PUBLIC_ENV__BASE_ORIGIN || 'http://localhost:3000',
 };
-
-console.log(publicConfig);
