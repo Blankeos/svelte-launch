@@ -13,7 +13,7 @@ export const authStore = writable<AuthStoreValue>({
 
 export function hydrateAuthStore(user: { id: string; username: string } | null) {
   authStore.update((value) => {
-    value.loading = !!user ?? false;
+    value.loading = !!user || false;
     value.user = user ?? null;
 
     return value;

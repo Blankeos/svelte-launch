@@ -62,6 +62,7 @@
                 toast.loading('🤺 Slicing EVEN HARDER!!!', { id: toastId });
                 await new Promise((resolve) => setTimeout(resolve, 800));
                 toast.loading("💣 It's GONNA BLOW!!!", { id: toastId });
+                await new Promise((resolve) => setTimeout(resolve, 500));
 
                 toast.promise(
                   async () => {
@@ -75,7 +76,7 @@
                     loading: '👨‍🍳 Cooking EVEN HARDER!!!',
                     success: '🍔 Toast cooked!',
                     error: '☄️ Toast BURNT!',
-                    id: 'loading-toast',
+                    id: toastId,
                   }
                 );
               },

@@ -6,12 +6,22 @@
 
 This is handcrafted from my own research. This might not work for you, but it works for me. 🤓
 
+You can also try my other starters:
+
+- [💙 Solid Launch](https://github.com/blankeos/svelte-launch) - If you like Solid, but same robust practices.
+
 ### Benefits
 
 - [x] 🐭 **Simple and minimal** - SvelteKit is the best JS framework for simplicty and getting the job done. Hands-down.
 - [x] ⚡️ **Super-fast dev server** - way faster than NextJS thanks to Vite. You need to feel it to believe it! It can also literally build your app in seconds.
 - [x] ☁️ **Selfhost-ready** - Crafted with simple hosting in mind that'll still probably scale to millions. Just spin up Docker container on a good'ol VPS without locking into serverless. DHH and Shayan influenced me on this. You can still host it on serverless tho. I think? lol
 - [x] **🔋 Batteries-included** - took care of the hard stuff for you. A well-thought-out folder structure from years of making projects: a design system, components, utilities, hooks, constants, an adequate backend DDD-inspired sliced architecture that isn't overkill, dockerizing your app, and most importantly---perfectly-crafted those pesky config files.
+- [x] 🔑 Authentication-Ready - One thing devs get stuck on. There's a practical auth implemented from scratch here that doesn't vendor-lock you into any auth provider.
+  - [x] Password
+  - [ ] Transactional Emails (Forgot Password, Email Verification)
+  - [ ] OAuth
+  - [ ] Magic Link
+  - [ ] User Management Dashboard
 
 ### Tech Stack
 
@@ -26,13 +36,7 @@ This is handcrafted from my own research. This might not work for you, but it wo
 - [x] **Lucia** - Makes self-rolling auth easy.
 - [ ] **SES or MimePost** - Emails
 - [ ] **Backblaze** - Cheap blob object storage with an S3-compatible API.
-- [ ] **Stripe, Payrex, or Xendit** - Accept payments.
-
-> You can also easily swap the database if you want.
->
-> - [ ] **Postgres** - powerful relational DB. (TBD)
-> - [ ] **CockroachDB** - serverless database. (TBD)
-> - [ ] **MongoDB** - cheap easy to use database. (TBD)
+- [ ] **Paddle** - Accept payments and pay foreign taxes.
 
 ### QuickStart
 
@@ -89,22 +93,22 @@ I took care of the painstaking parts to help you develop easily on a SPA + SSR +
 
    - Hydrating Current User
 
-     This will also automatically hydrate in your layouts. Anywhere you use `$authStore` it's magic.
+     This will also automatically hydrate in your layouts. Anywhere you use `$authStore`, it's magic.
 
      ```ts
      // page.server.ts
      export async function load(event: PageServerLoadEvent) {
-        const trpcClient = initTRPCSSRClient(event.request.headers, event.setHeaders);
+       const trpcClient = initTRPCSSRClient(event.request.headers, event.setHeaders);
 
-        const result = await trpcClient.currentUser.query();
+       const result = await trpcClient.currentUser.query();
 
-        if (!result.user) {
-           throw redirect(302, '/dashboard'); // Must be a public route here.
-        }
+       if (!result.user) {
+         throw redirect(302, '/dashboard'); // Must be a public route here.
+       }
 
-        return {
-           user: result.user ?? null,
-        };
+       return {
+         user: result.user ?? null,
+       };
      }
 
      // page.svelte
@@ -136,17 +140,17 @@ I took care of the painstaking parts to help you develop easily on a SPA + SSR +
      import type { PageServerLoadEvent } from './$types';
 
      export async function load(event: PageServerLoadEvent) {
-        const trpcClient = initTRPCSSRClient(event.request.headers, event.setHeaders);
+       const trpcClient = initTRPCSSRClient(event.request.headers, event.setHeaders);
 
-        const result = await trpcClient.currentUser.query();
+       const result = await trpcClient.currentUser.query();
 
-        if (!result.user) {
-           throw redirect(302, '/dashboard'); // Must be a public route here.
-        }
+       if (!result.user) {
+         throw redirect(302, '/dashboard'); // Must be a public route here.
+       }
 
-        return {
-           user: result.user ?? null,
-        };
+       return {
+         user: result.user ?? null,
+       };
      }
      ```
 
