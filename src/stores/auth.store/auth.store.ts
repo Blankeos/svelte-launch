@@ -21,7 +21,7 @@ export function hydrateAuthStore(user: { id: string; username: string } | null) 
 }
 
 export async function login(username: string, password: string) {
-  const result = await trpcClient.login.mutate({
+  const result = await trpcClient.auth.login.mutate({
     username: username,
     password: password,
   });
@@ -39,7 +39,7 @@ export async function login(username: string, password: string) {
 }
 
 export async function logout() {
-  const result = await trpcClient.logout.query();
+  const result = await trpcClient.auth.logout.query();
   if (result.success) {
     authStore.update((value) => {
       value.user = null;
@@ -52,7 +52,7 @@ export async function logout() {
 }
 
 export async function register(username: string, password: string) {
-  const result = await trpcClient.register.mutate({
+  const result = await trpcClient.auth.register.mutate({
     username: username,
     password: password,
   });

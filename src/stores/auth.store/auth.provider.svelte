@@ -13,7 +13,7 @@
 
     $authStore.loading = true;
 
-    const result = await trpcClient.currentUser.query();
+    const result = await trpcClient.auth.currentUser.query();
 
     if (result.user) {
       // Found user.

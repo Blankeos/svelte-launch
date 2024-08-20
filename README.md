@@ -100,7 +100,7 @@ I took care of the painstaking parts to help you develop easily on a SPA + SSR +
      export async function load(event: PageServerLoadEvent) {
        const trpcClient = initTRPCSSRClient(event.request.headers, event.setHeaders);
 
-       const result = await trpcClient.currentUser.query();
+       const result = await trpcClient.auth.currentUser.query();
 
        if (!result.user) {
          throw redirect(302, '/dashboard'); // Must be a public route here.
@@ -142,7 +142,7 @@ I took care of the painstaking parts to help you develop easily on a SPA + SSR +
      export async function load(event: PageServerLoadEvent) {
        const trpcClient = initTRPCSSRClient(event.request.headers, event.setHeaders);
 
-       const result = await trpcClient.currentUser.query();
+       const result = await trpcClient.auth.currentUser.query();
 
        if (!result.user) {
          throw redirect(302, '/dashboard'); // Must be a public route here.
