@@ -25,7 +25,7 @@
 
 <nav class="flex h-20 items-center justify-between gap-x-5 px-8">
   <a class="flex items-center gap-x-2" href={PageRoutes.Home}>
-    <img class="h-16 w-16" src="/icon-logo.svg" />
+    <img class="h-16 w-16" src="/icon-logo.svg" alt="logo" />
     <span>Svelte Launch</span>
   </a>
 
