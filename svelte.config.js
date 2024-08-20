@@ -17,6 +17,15 @@ const config = {
       '@': 'src',
     },
   },
+
+  // Ignore warnings
+  onwarn(warning, defaultHandler) {
+    // ignore self-closing tags for non-void elements
+    if (warning.code === 'element_invalid_self_closing_tag') return;
+
+    // handle all other warnings normally
+    defaultHandler(warning);
+  },
 };
 
 export default config;

@@ -6,6 +6,6 @@
 
   // Disable SvelteKit accessibility warnings: https://svelte.dev/docs/accessibility-warnings
   "svelte.plugin.svelte.compilerWarnings": {
-    "element_invalid_self_closing_tag": "ignore" // I just hate this: https://github.com/sveltejs/svelte/issues/11052
+    "element_invalid_self_closing_tag": "i// I just hate this: https://github.com/sveltejs/svelte/issues/11052gnore"
   }
 }
