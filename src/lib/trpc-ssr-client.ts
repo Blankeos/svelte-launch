@@ -1,6 +1,8 @@
 import { publicConfig } from '@/config.public';
 import type { AppRouter } from '@/server/_app';
+import type { Cookies } from '@sveltejs/kit';
 import { createTRPCClient, httpBatchLink } from '@trpc/client';
+import * as setCookieParser from 'set-cookie-parser';
 
 /**
  * Motivation: For TRPC to work seamlessly SSR, we have to proxy the Request and Response headers
@@ -33,9 +35,13 @@ export const initTRPCSSRClient = (
   /**
    * Pass the response headers to be sent back to the browser here.
    * NOTE: In SvelteKit, we can't pass response.headers directly.
-   * But there is an event.setHeaders` method that we can use for this case.
    */
-  responseSetHeaders: (headers: Record<string, string>) => void
+  responseSetHeaders: (headers: Record<string, string>) => void,
+  /**
+   * Pass the cookies to be sent back to the browser here.
+   * NOTE: In SvelteKit, we can't pass response.headers.set-cookie directly.
+   */
+  cookies: Cookies
 ) => {
   return createTRPCClient<AppRouter>({
     links: [
@@ -55,6 +61,20 @@ export const initTRPCSSRClient = (
           for (const [key, value] of response.headers) {
             // Don't set back the Content-Type header (Otherwise, content-type HTML would become a json).
             if (key.toLowerCase() === 'content-type') continue;
+
+            // Don't set back the Content-Length header (otherwise, content-length 16 would error 500).
+            if (key.toLowerCase() === 'content-length') continue;
+
+            // Cookies must be set with cookies.set (SvelteKit)
+            if (key.toLowerCase() === 'set-cookie') {
+              const parsedCookies = setCookieParser.parse(value);
+              parsedCookies.forEach((_cookie) => {
+                const { name: cookieName, value: cookieValue, ...attributes } = _cookie;
+
+                cookies.set(cookieName, cookieValue, attributes as any);
+              });
+              continue;
+            }
 
             responseHeaders[key] = value;
           }

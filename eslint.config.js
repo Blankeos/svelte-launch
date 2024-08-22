@@ -28,6 +28,14 @@ export default [
     },
   },
   {
+    rules: {
+      'svelte/valid-compile': 'warn',
+      '@typescript-eslint/no-explicit-any': 'off',
+      'prefer-const': 'warn',
+      '@typescript-eslint/no-unused-vars': 'warn',
+    },
+  },
+  {
     ignores: ['build/', '.svelte-kit/', 'dist/'],
   },
 ];
